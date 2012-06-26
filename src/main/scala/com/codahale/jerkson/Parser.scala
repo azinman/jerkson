@@ -1,6 +1,6 @@
 package com.codahale.jerkson
 
-import io.Source
+import scala.io.Source
 import java.net.URL
 import com.codahale.jerkson.AST.{JValue, JNull}
 import com.fasterxml.jackson.core.{JsonParser, JsonProcessingException}
