@@ -122,3 +122,15 @@ class ScalaDeserializers(classLoader: ClassLoader, context: SetupContext) extend
     }
   }
 }
+
+object DeserializationHelper {
+  def toScala(value: Any):AnyRef = value match {
+    case map:java.util.Map[_, _] => 
+      scala.collection.JavaConversions.mapAsScalaMap(map).map { case (k, v) =>
+        (k -> toScala(v))
+      }
+    case arr:java.util.List[_] => 
+      scala.collection.JavaConversions.asScalaBuffer(arr)
+    case _ => value.asInstanceOf[AnyRef]
+  }
+}

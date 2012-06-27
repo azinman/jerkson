@@ -16,7 +16,7 @@ class IteratorDeserializer(elementType: JavaType) extends JsonDeserializer[Objec
     }
 
     while (jp.nextToken() != JsonToken.END_ARRAY) {
-      builder += elementDeserializer.deserialize(jp, ctxt)
+      builder += DeserializationHelper.toScala(elementDeserializer.deserialize(jp, ctxt))
     }
 
     builder.result().iterator.buffered

@@ -18,7 +18,7 @@ class OptionDeserializer(elementType: JavaType)
     if (jp.getCurrentToken == JsonToken.VALUE_NULL) {
       None
     } else {
-      Some(elementDeserializer.deserialize(jp, ctxt))
+      Some(DeserializationHelper.toScala(elementDeserializer.deserialize(jp, ctxt)))
     }
   }
 

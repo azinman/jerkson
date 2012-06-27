@@ -24,7 +24,7 @@ class MutableMapDeserializer(valueType: JavaType) extends JsonDeserializer[Objec
     while (jp.getCurrentToken != JsonToken.END_OBJECT) {
       val name = jp.getCurrentName
       jp.nextToken()
-      builder += ((name, valueDeserializer.deserialize(jp, ctxt)))
+      builder += ((name, DeserializationHelper.toScala(valueDeserializer.deserialize(jp, ctxt))))
       jp.nextToken()
     }
 

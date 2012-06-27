@@ -20,7 +20,7 @@ class SeqDeserializer[+CC[X] <: Traversable[X]](companion: GenericCompanion[CC],
     }
 
     while (jp.nextToken() != JsonToken.END_ARRAY) {
-      builder += elementDeserializer.deserialize(jp, ctxt)
+      builder += DeserializationHelper.toScala(elementDeserializer.deserialize(jp, ctxt))
     }
 
     builder.result()

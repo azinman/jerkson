@@ -25,7 +25,7 @@ class LongMapDeserializer(valueType: JavaType) extends JsonDeserializer[Object] 
       try {
         val name = jp.getCurrentName.toLong
         jp.nextToken()
-        map += ((name, valueDeserializer.deserialize(jp, ctxt)))
+        map += ((name, DeserializationHelper.toScala(valueDeserializer.deserialize(jp, ctxt))))
         jp.nextToken()
       } catch {
         case e: IllegalArgumentException => throw ctxt.mappingException(classOf[LongMap[_]])
