@@ -1,5 +1,7 @@
 package com.codahale.jerkson
 
+import com.codahale.jerkson.AST.JsonSerialized
+
 import java.io.{File, OutputStream, Writer, StringWriter}
 import com.fasterxml.jackson.core.{JsonGenerator, JsonEncoding}
 
@@ -7,10 +9,10 @@ trait Generator extends Factory {
   /**
    * Generate JSON from the given object and return it as a string.
    */
-  def generate[A](obj: A): String = {
+  def generate[A](obj: A): JsonSerialized = {
     val writer = new StringWriter
     generate(obj, writer)
-    writer.toString
+    JsonSerialized(writer.toString)
   }
 
   /**

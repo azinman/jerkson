@@ -1,13 +1,18 @@
 package com.codahale.jerkson.ser
 
-import com.codahale.jerkson.AST.JValue
+import org.joda.time.DateTime
+import com.codahale.jerkson.AST._
 import com.fasterxml.jackson.databind._
 import com.fasterxml.jackson.databind.ser.Serializers
 
 class ScalaSerializers extends Serializers.Base {
   override def findSerializer(config: SerializationConfig, javaType: JavaType, beanDesc: BeanDescription) = {
     val ser: Object = if (classOf[Option[_]].isAssignableFrom(beanDesc.getBeanClass)) {
-        new OptionSerializer
+      new OptionSerializer
+    } else if (classOf[JsonSerialized].isAssignableFrom(beanDesc.getBeanClass)) {
+      new RawSerializer
+    } else if (classOf[DateTime].isAssignableFrom(beanDesc.getBeanClass)) {
+      new DateTimeSerializer
     } else if (classOf[StringBuilder].isAssignableFrom(beanDesc.getBeanClass)) {
       new StringBuilderSerializer
     } else if (classOf[collection.Map[_,_]].isAssignableFrom(beanDesc.getBeanClass)) {
